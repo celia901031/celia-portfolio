@@ -4,187 +4,243 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Celia — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,400&family=Playfair+Display:ital@1&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- ═══ NAV ═══ -->
   <nav>
-    <span class="nav-logo">Celia</span>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-left">
+      <a href="#about">ABOUT</a><span class="slash">/</span><a href="#projects">PROJECTS</a>
+    </div>
+    <a href="#hero" class="nav-logo">CELIA</a>
+    <div class="nav-right">
+      <a href="#skills">SKILLS</a><span class="slash">/</span><a href="#contact">CONTACT</a>
+    </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ═══ HERO ═══ -->
   <section id="hero">
-    <div class="hero-content">
-      <p class="hero-greeting">Hi, I'm</p>
-      <h1>Celia</h1>
-      <p class="hero-subtitle">Developer &amp; Creative Problem Solver</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View My Work</a>
-        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    <div class="hero-meta-row">
+      <span class="meta">(PORTFOLIO)</span>
+      <span class="meta">DEVELOPER &amp; CREATIVE</span>
+      <span class="meta red">AVAILABLE FOR WORK</span>
+    </div>
+
+    <div class="hero-body">
+      <div class="hero-left">
+        <p class="hero-serif">Based in<br /><em>the digital world</em></p>
+        <p class="hero-serif">Crafting<br /><em>thoughtful interfaces</em></p>
+        <p class="hero-serif">Driven by<br /><em>curiosity &amp; code</em></p>
+      </div>
+      <div class="hero-right">
+        <p class="hero-desc">Full-stack developer focused on building clean, purposeful web experiences. I work at the intersection of design and engineering.</p>
+        <a href="#projects" class="link-arrow">VIEW WORK →</a>
       </div>
     </div>
-    <div class="hero-decoration" aria-hidden="true">
-      <div class="circle circle-1"></div>
-      <div class="circle circle-2"></div>
-      <div class="circle circle-3"></div>
+
+    <div class="hero-bleed">
+      <span class="bleed-text">CELIA</span>
     </div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- ═══ ABOUT ═══ -->
   <section id="about">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-grid">
-        <div class="about-avatar">
-          <div class="avatar-placeholder">C</div>
-        </div>
-        <div class="about-text">
-          <p>Hello! I'm Celia, a passionate developer who loves building things for the web. I enjoy turning complex problems into simple, beautiful, and intuitive solutions.</p>
-          <p>When I'm not coding, you can find me exploring new technologies, contributing to open source, or enjoying a good cup of coffee while reading.</p>
-          <p>I'm always open to interesting projects and new opportunities — feel free to reach out!</p>
-          <div class="about-links">
-            <a href="https://github.com" target="_blank" class="icon-link">GitHub</a>
-            <a href="https://linkedin.com" target="_blank" class="icon-link">LinkedIn</a>
-            <a href="#" class="icon-link">Resume ↓</a>
-          </div>
+    <div class="section-header">
+      <span class="meta">(02)</span>
+      <h2 class="section-label">ABOUT</h2>
+      <span class="meta">PERSONAL</span>
+    </div>
+    <div class="rule"></div>
+
+    <div class="about-grid">
+      <div class="about-index">
+        <ul class="editorial-list">
+          <li>Developer</li>
+          <li><em>Designer</em></li>
+          <li>Problem Solver</li>
+          <li><em>Open Source</em></li>
+          <li>Coffee Enjoyer</li>
+        </ul>
+      </div>
+      <div class="about-content">
+        <p class="about-lead">Hello — I'm Celia.</p>
+        <p>I'm a developer who loves building things for the web. I enjoy turning complex problems into simple, beautiful, and intuitive solutions that people actually enjoy using.</p>
+        <p>My work lives at the intersection of clean engineering and considered design. I care deeply about performance, accessibility, and the small details that make an interface feel right.</p>
+        <p>When I'm not coding, I'm exploring new technologies, contributing to open source, or finding inspiration in editorial design, photography, and architecture.</p>
+        <div class="about-links">
+          <a href="https://github.com" target="_blank" class="text-link">GITHUB →</a>
+          <a href="https://linkedin.com" target="_blank" class="text-link">LINKEDIN →</a>
+          <a href="#" class="text-link">RESUME →</a>
         </div>
       </div>
+      <div class="about-year">
+        <span class="year-text">EST.<br />2020</span>
+      </div>
+    </div>
+
+    <div class="about-bleed">
+      <span class="bleed-text bleed-outline">ABOUT</span>
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- ═══ PROJECTS ═══ -->
   <section id="projects">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <div class="projects-grid">
+    <div class="section-header">
+      <span class="meta">(03)</span>
+      <h2 class="section-label">PROJECTS</h2>
+      <span class="meta">SELECTED WORK</span>
+    </div>
+    <div class="rule"></div>
 
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-icon">🌐</span>
-            <div class="project-links">
-              <a href="#" target="_blank">Demo</a>
-              <a href="#" target="_blank">GitHub</a>
-            </div>
-          </div>
-          <h3>Project One</h3>
-          <p>A full-stack web application that solves a real-world problem. Built with modern technologies and a focus on user experience.</p>
-          <div class="project-tags">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span>
-          </div>
-        </article>
+    <div class="projects-list">
 
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-icon">📱</span>
-            <div class="project-links">
-              <a href="#" target="_blank">Demo</a>
-              <a href="#" target="_blank">GitHub</a>
-            </div>
-          </div>
-          <h3>Project Two</h3>
-          <p>A responsive mobile-first application with a clean interface. Focused on performance and accessibility across all devices.</p>
-          <div class="project-tags">
-            <span>React</span><span>Node.js</span><span>CSS</span>
-          </div>
-        </article>
+      <article class="project-row">
+        <div class="project-num">01</div>
+        <div class="project-info">
+          <h3 class="project-title">Project One</h3>
+          <p class="project-desc">A full-stack web application solving a real-world problem. Built with a focus on user experience, performance, and accessibility across all devices.</p>
+          <div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank" class="text-link">DEMO →</a>
+          <a href="#" target="_blank" class="text-link">GITHUB →</a>
+        </div>
+      </article>
+      <div class="rule"></div>
 
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-icon">🛠️</span>
-            <div class="project-links">
-              <a href="#" target="_blank">Demo</a>
-              <a href="#" target="_blank">GitHub</a>
-            </div>
-          </div>
-          <h3>Project Three</h3>
-          <p>An open-source tool that helps developers streamline their workflow. Used by hundreds of developers in production.</p>
-          <div class="project-tags">
-            <span>Python</span><span>API</span><span>CLI</span>
-          </div>
-        </article>
+      <article class="project-row">
+        <div class="project-num">02</div>
+        <div class="project-info">
+          <h3 class="project-title">Project Two</h3>
+          <p class="project-desc">A responsive mobile-first application with a clean, minimal interface. Focused on fast load times and intuitive interactions.</p>
+          <div class="project-tags"><span>React</span><span>Node.js</span><span>CSS</span></div>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank" class="text-link">DEMO →</a>
+          <a href="#" target="_blank" class="text-link">GITHUB →</a>
+        </div>
+      </article>
+      <div class="rule"></div>
 
-      </div>
+      <article class="project-row">
+        <div class="project-num">03</div>
+        <div class="project-info">
+          <h3 class="project-title">Project Three</h3>
+          <p class="project-desc">An open-source developer tool that streamlines workflow. Used in production by hundreds of developers worldwide.</p>
+          <div class="project-tags"><span>Python</span><span>API</span><span>CLI</span></div>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank" class="text-link">DEMO →</a>
+          <a href="#" target="_blank" class="text-link">GITHUB →</a>
+        </div>
+      </article>
+      <div class="rule"></div>
+
+    </div>
+
+    <div class="projects-bleed">
+      <span class="bleed-text red-text">WORK</span>
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- ═══ SKILLS ═══ -->
   <section id="skills">
-    <div class="container">
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
+    <div class="section-header">
+      <span class="meta">(04)</span>
+      <h2 class="section-label">SKILLS</h2>
+      <span class="meta">CAPABILITIES</span>
+    </div>
+    <div class="rule"></div>
 
-        <div class="skills-category">
-          <h3>Frontend</h3>
-          <ul>
-            <li><span class="skill-name">HTML &amp; CSS</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></li>
-            <li><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></li>
-            <li><span class="skill-name">React</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></li>
-          </ul>
-        </div>
-
-        <div class="skills-category">
-          <h3>Backend</h3>
-          <ul>
-            <li><span class="skill-name">Node.js</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></li>
-            <li><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></li>
-            <li><span class="skill-name">SQL</span><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></li>
-          </ul>
-        </div>
-
-        <div class="skills-category">
-          <h3>Tools</h3>
-          <ul>
-            <li><span class="skill-name">Git &amp; GitHub</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></li>
-            <li><span class="skill-name">VS Code</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></li>
-            <li><span class="skill-name">Figma</span><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></li>
-          </ul>
-        </div>
-
+    <div class="skills-grid">
+      <div class="skills-col">
+        <h3 class="skills-cat">Frontend</h3>
+        <ul class="skills-list">
+          <li><span>HTML &amp; CSS</span><span class="skill-pct">95</span></li>
+          <li><span>JavaScript</span><span class="skill-pct">90</span></li>
+          <li><span>React</span><span class="skill-pct">80</span></li>
+          <li><span>TypeScript</span><span class="skill-pct">75</span></li>
+        </ul>
       </div>
+      <div class="skills-col">
+        <h3 class="skills-cat">Backend</h3>
+        <ul class="skills-list">
+          <li><span>Node.js</span><span class="skill-pct">75</span></li>
+          <li><span>Python</span><span class="skill-pct">70</span></li>
+          <li><span>SQL</span><span class="skill-pct">65</span></li>
+          <li><span>REST APIs</span><span class="skill-pct">85</span></li>
+        </ul>
+      </div>
+      <div class="skills-col">
+        <h3 class="skills-cat">Tools</h3>
+        <ul class="skills-list">
+          <li><span>Git &amp; GitHub</span><span class="skill-pct">90</span></li>
+          <li><span>Figma</span><span class="skill-pct">70</span></li>
+          <li><span>VS Code</span><span class="skill-pct">95</span></li>
+          <li><span>Linux / CLI</span><span class="skill-pct">80</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="skills-bleed">
+      <span class="bleed-text bleed-outline">SKILLS</span>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ═══ CONTACT ═══ -->
   <section id="contact">
-    <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
-      <p class="contact-subtitle">Have a project in mind or just want to say hi? My inbox is always open.</p>
+    <div class="section-header">
+      <span class="meta">(05)</span>
+      <h2 class="section-label">CONTACT</h2>
+      <span class="meta">GET IN TOUCH</span>
+    </div>
+    <div class="rule"></div>
+
+    <div class="contact-grid">
+      <div class="contact-left">
+        <p class="contact-serif"><em>Have a project<br />in mind?</em></p>
+        <p class="contact-body">I'm always open to interesting work and new collaborations. Drop me a message and I'll get back to you soon.</p>
+        <p class="contact-email"><a href="mailto:hello@celia.dev" class="text-link">HELLO@CELIA.DEV →</a></p>
+      </div>
       <form class="contact-form" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required />
-          </div>
+        <div class="form-group">
+          <label for="name">NAME</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
         </div>
         <div class="form-group">
-          <label for="subject">Subject</label>
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="subject">SUBJECT</label>
           <input type="text" id="subject" name="subject" placeholder="What's this about?" required />
         </div>
         <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..." required></textarea>
+          <label for="message">MESSAGE</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+        <button type="submit" class="submit-btn">SEND MESSAGE →</button>
         <p id="form-status" class="form-status" aria-live="polite"></p>
       </form>
     </div>
+
+    <div class="contact-bleed">
+      <span class="bleed-text red-text">CELIA</span>
+    </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ═══ FOOTER ═══ -->
   <footer>
-    <p>Designed &amp; Built by <strong>Celia</strong></p>
-    <p class="footer-copy">&copy; <span id="year"></span> All rights reserved.</p>
+    <div class="rule"></div>
+    <div class="footer-inner">
+      <span class="meta">CELIA — PORTFOLIO</span>
+      <span class="meta">&copy; <span id="year"></span></span>
+      <span class="meta">DESIGNED &amp; BUILT BY CELIA</span>
+    </div>
   </footer>
 
   <script src="script.js"></script>
