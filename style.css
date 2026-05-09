@@ -532,7 +532,7 @@ body.loaded .marquee-wrap { opacity: 1; }
 .project-detail {
   position: fixed;
   inset: 0;
-  z-index: 300;
+  z-index: 550;
   background: var(--bg);
   overflow-y: auto;
   transform: translateY(100%);
