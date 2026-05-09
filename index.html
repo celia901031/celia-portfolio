@@ -4,187 +4,257 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Celia — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <span class="nav-logo">Celia</span>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <div id="cursor"></div>
+
+  <!-- ═══ NAV ═══ -->
+  <nav class="site-nav" id="site-nav">
+    <a href="#hero" class="nav-logo hero-fade" style="--i:0">Celia.</a>
+    <div class="nav-desktop">
+      <a href="#work"  class="nav-desk-link hero-fade" style="--i:1">Work</a>
+      <a href="#about" class="nav-desk-link hero-fade" style="--i:2">About</a>
+      <a href="mailto:celia.chuang11@gmail.com" class="nav-desk-link hero-fade" style="--i:3">Contact</a>
+    </div>
+    <button class="nav-toggle hero-fade" id="nav-toggle" style="--i:1" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
   </nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-content">
-      <p class="hero-greeting">Hi, I'm</p>
-      <h1>Celia</h1>
-      <p class="hero-subtitle">Developer &amp; Creative Problem Solver</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View My Work</a>
-        <a href="#contact" class="btn btn-outline">Get In Touch</a>
-      </div>
+  <!-- ═══ NAV OVERLAY ═══ -->
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+    <div class="overlay-links">
+      <a href="#work"    class="ol-link" data-num="01">Work</a>
+      <a href="#about"   class="ol-link" data-num="02">About</a>
+      <a href="mailto:celia.chuang11@gmail.com" class="ol-link" data-num="03">Contact</a>
     </div>
-    <div class="hero-decoration" aria-hidden="true">
-      <div class="circle circle-1"></div>
-      <div class="circle circle-2"></div>
-      <div class="circle circle-3"></div>
+    <div class="overlay-footer">
+      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
     </div>
-  </section>
+  </div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-grid">
-        <div class="about-avatar">
-          <div class="avatar-placeholder">C</div>
+  <!-- ═══ HERO ═══ -->
+  <section id="hero" class="s-hero">
+
+    <div class="hero-top">
+      <span class="hero-tag hero-fade" style="--i:2">Portfolio — <span id="hero-year"></span></span>
+      <span class="hero-tag hero-fade" style="--i:2">Based in London</span>
+    </div>
+
+    <div class="hero-center">
+      <h1 class="hero-name">
+        <span class="reveal"><em class="ri" style="--i:2">Celia</em></span>
+      </h1>
+      <div class="hero-sub-row">
+        <div class="hero-sub">
+          <div class="reveal"><span class="ri" style="--i:3">Developer &amp; Creative —</span></div>
+          <div class="reveal"><span class="ri" style="--i:4">building thoughtful digital experiences.</span></div>
         </div>
-        <div class="about-text">
-          <p>Hello! I'm Celia, a passionate developer who loves building things for the web. I enjoy turning complex problems into simple, beautiful, and intuitive solutions.</p>
-          <p>When I'm not coding, you can find me exploring new technologies, contributing to open source, or enjoying a good cup of coffee while reading.</p>
-          <p>I'm always open to interesting projects and new opportunities — feel free to reach out!</p>
-          <div class="about-links">
-            <a href="https://github.com" target="_blank" class="icon-link">GitHub</a>
-            <a href="https://linkedin.com" target="_blank" class="icon-link">LinkedIn</a>
-            <a href="#" class="icon-link">Resume ↓</a>
-          </div>
+        <div class="hero-cta-wrap" style="--i:5">
+          <a href="#work" class="btn-arrow">View Work <span>→</span></a>
         </div>
       </div>
     </div>
+
+    <div class="hero-bottom">
+      <span class="scroll-hint hero-fade" style="--i:5">Scroll ↓</span>
+      <span class="hero-tag hero-fade" style="--i:5">Full-Stack / UI</span>
+    </div>
+
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <span>Developer</span><span class="msep">·</span>
+        <span>Creative</span><span class="msep">·</span>
+        <span>Full-Stack</span><span class="msep">·</span>
+        <span>UI Design</span><span class="msep">·</span>
+        <span>Available for Work</span><span class="msep">·</span>
+        <span>London</span><span class="msep">·</span>
+        <span>Developer</span><span class="msep">·</span>
+        <span>Creative</span><span class="msep">·</span>
+        <span>Full-Stack</span><span class="msep">·</span>
+        <span>UI Design</span><span class="msep">·</span>
+        <span>Available for Work</span><span class="msep">·</span>
+        <span>London</span><span class="msep">·</span>
+      </div>
+    </div>
+
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <div class="projects-grid">
+  <!-- ═══ WORK ═══ -->
+  <section id="work" class="s-work">
+    <div class="section-head" data-reveal>
+      <h2 class="section-label">Work</h2>
+      <span class="section-count">(03)</span>
+    </div>
 
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-icon">🌐</span>
-            <div class="project-links">
-              <a href="#" target="_blank">Demo</a>
-              <a href="#" target="_blank">GitHub</a>
-            </div>
-          </div>
-          <h3>Project One</h3>
-          <p>A full-stack web application that solves a real-world problem. Built with modern technologies and a focus on user experience.</p>
-          <div class="project-tags">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span>
-          </div>
-        </article>
+    <div class="projects-grid">
 
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-icon">📱</span>
-            <div class="project-links">
-              <a href="#" target="_blank">Demo</a>
-              <a href="#" target="_blank">GitHub</a>
-            </div>
+      <article class="p-card" data-project="0" data-reveal data-delay="0.05">
+        <div class="p-card-media" style="background:#0d0d0d">
+          <span class="p-card-num">01</span>
+          <div class="p-card-hover">
+            <span class="p-cat">Web Development</span>
+            <h3>Project One</h3>
+            <span class="p-cta">View Project →</span>
           </div>
-          <h3>Project Two</h3>
-          <p>A responsive mobile-first application with a clean interface. Focused on performance and accessibility across all devices.</p>
-          <div class="project-tags">
-            <span>React</span><span>Node.js</span><span>CSS</span>
-          </div>
-        </article>
+        </div>
+        <div class="p-card-foot">
+          <span class="p-card-title">Project One</span>
+          <span class="p-card-tags">HTML · CSS · JS</span>
+        </div>
+      </article>
 
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-icon">🛠️</span>
-            <div class="project-links">
-              <a href="#" target="_blank">Demo</a>
-              <a href="#" target="_blank">GitHub</a>
-            </div>
+      <article class="p-card" data-project="1" data-reveal data-delay="0.15">
+        <div class="p-card-media" style="background:#990021">
+          <span class="p-card-num">02</span>
+          <div class="p-card-hover">
+            <span class="p-cat">Full-Stack App</span>
+            <h3>Project Two</h3>
+            <span class="p-cta">View Project →</span>
           </div>
-          <h3>Project Three</h3>
-          <p>An open-source tool that helps developers streamline their workflow. Used by hundreds of developers in production.</p>
-          <div class="project-tags">
-            <span>Python</span><span>API</span><span>CLI</span>
-          </div>
-        </article>
+        </div>
+        <div class="p-card-foot">
+          <span class="p-card-title">Project Two</span>
+          <span class="p-card-tags">React · Node · CSS</span>
+        </div>
+      </article>
 
-      </div>
+      <article class="p-card p-card--wide" data-project="2" data-reveal data-delay="0.25">
+        <div class="p-card-media" style="background:#2a2a2a">
+          <span class="p-card-num">03</span>
+          <div class="p-card-hover">
+            <span class="p-cat">Open Source</span>
+            <h3>Project Three</h3>
+            <span class="p-cta">View Project →</span>
+          </div>
+        </div>
+        <div class="p-card-foot">
+          <span class="p-card-title">Project Three</span>
+          <span class="p-card-tags">Python · API · CLI</span>
+        </div>
+      </article>
+
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="container">
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
+  <!-- ═══ PROJECT DETAIL OVERLAY ═══ -->
+  <div class="project-detail" id="project-detail" aria-hidden="true">
+    <div class="pd-nav">
+      <button class="pd-close" id="pd-close" aria-label="Close project">← Back to Work</button>
+      <span class="pd-num" id="pd-num"></span>
+    </div>
+    <div class="pd-hero">
+      <div class="pd-hero-bg" id="pd-hero-bg"></div>
+      <div class="pd-hero-content">
+        <span class="pd-cat" id="pd-cat"></span>
+        <h2 class="pd-title" id="pd-title"></h2>
+        <div class="pd-meta">
+          <span id="pd-year"></span>
+          <span id="pd-type"></span>
+        </div>
+      </div>
+    </div>
+    <div class="pd-body">
+      <div class="pd-row">
+        <div class="pd-desc-col">
+          <h3 class="pd-heading">Overview</h3>
+          <p class="pd-desc" id="pd-desc"></p>
+        </div>
+        <div class="pd-details-col">
+          <h3 class="pd-heading">Details</h3>
+          <ul class="pd-detail-list" id="pd-detail-list"></ul>
+        </div>
+      </div>
+      <div class="pd-stack-row">
+        <h3 class="pd-heading">Stack</h3>
+        <div class="pd-tags" id="pd-tags"></div>
+      </div>
+      <div class="pd-blocks">
+        <div class="pd-block pd-block--dark"></div>
+        <div class="pd-block pd-block--light"></div>
+        <div class="pd-block pd-block--accent"></div>
+      </div>
+    </div>
+  </div>
 
-        <div class="skills-category">
-          <h3>Frontend</h3>
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about" class="s-about">
+    <div class="about-header" data-reveal>
+      <h2 class="section-label">About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual" data-reveal data-delay="0.1">
+        <div class="about-monogram">C</div>
+        <div class="about-visual-meta">
+          <span>Developer</span>
+          <span>Designer</span>
+          <span>Builder</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="about-intro" data-reveal data-delay="0.15"><em>"I build things people actually enjoy using."</em></p>
+        <p data-reveal data-delay="0.2">Hi, I'm Celia. I'm a full-stack developer who cares about both the engineering and the experience. I work at the intersection of clean code and considered design.</p>
+        <p data-reveal data-delay="0.25">I'm passionate about performance, accessibility, and the small details that make an interface feel right. Whether it's a polished UI or a well-architected API, I bring the same attention to craft.</p>
+        <p data-reveal data-delay="0.3">When I'm not coding, I'm exploring new technologies, contributing to open source, or finding inspiration in editorial design and photography.</p>
+        <div class="about-links" data-reveal data-delay="0.35">
+          <a href="https://github.com" target="_blank" class="text-link">GitHub →</a>
+          <a href="https://linkedin.com" target="_blank" class="text-link">LinkedIn →</a>
+          <a href="#" class="text-link">Resume →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-block" data-reveal data-delay="0.1">
+      <div class="skills-row">
+        <div class="skill-group">
+          <h4>Frontend</h4>
           <ul>
-            <li><span class="skill-name">HTML &amp; CSS</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></li>
-            <li><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></li>
-            <li><span class="skill-name">React</span><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></li>
+            <li>HTML &amp; CSS</li><li>JavaScript</li><li>React</li><li>TypeScript</li>
           </ul>
         </div>
-
-        <div class="skills-category">
-          <h3>Backend</h3>
+        <div class="skill-group">
+          <h4>Backend</h4>
           <ul>
-            <li><span class="skill-name">Node.js</span><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></li>
-            <li><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></li>
-            <li><span class="skill-name">SQL</span><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></li>
+            <li>Node.js</li><li>Python</li><li>SQL</li><li>REST APIs</li>
           </ul>
         </div>
-
-        <div class="skills-category">
-          <h3>Tools</h3>
+        <div class="skill-group">
+          <h4>Tools</h4>
           <ul>
-            <li><span class="skill-name">Git &amp; GitHub</span><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></li>
-            <li><span class="skill-name">VS Code</span><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></li>
-            <li><span class="skill-name">Figma</span><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></li>
+            <li>Git &amp; GitHub</li><li>Figma</li><li>VS Code</li><li>Linux / CLI</li>
           </ul>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
-      <p class="contact-subtitle">Have a project in mind or just want to say hi? My inbox is always open.</p>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="subject">Subject</label>
-          <input type="text" id="subject" name="subject" placeholder="What's this about?" required />
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-        <p id="form-status" class="form-status" aria-live="polite"></p>
-      </form>
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact" class="s-contact">
+    <div class="contact-inner" data-reveal>
+      <span class="section-label-sm">Contact</span>
+      <h2 class="contact-heading"><em>Say hello.</em></h2>
+      <p class="contact-sub">Have a project in mind, or just want to chat? My inbox is always open.</p>
+      <a href="mailto:celia.chuang11@gmail.com" class="contact-email">
+        celia.chuang11@gmail.com
+        <span class="email-arrow">↗</span>
+      </a>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>Designed &amp; Built by <strong>Celia</strong></p>
-    <p class="footer-copy">&copy; <span id="year"></span> All rights reserved.</p>
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Celia — Portfolio</span>
+      <span>&copy; <span id="footer-year"></span></span>
+      <span>Designed &amp; Built by Celia</span>
+    </div>
   </footer>
 
   <script src="script.js"></script>
