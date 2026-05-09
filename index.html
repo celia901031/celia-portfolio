@@ -6,240 +6,219 @@
   <title>Celia — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,400&family=Playfair+Display:ital@1&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- ═══ NAV ═══ -->
-  <nav>
-    <div class="nav-left">
-      <a href="#about">ABOUT</a><span class="slash">/</span><a href="#projects">PROJECTS</a>
-    </div>
-    <a href="#hero" class="nav-logo">CELIA CHUANG</a>
-    <div class="nav-right">
-      <a href="#skills">SKILLS</a><span class="slash">/</span><a href="#contact">CONTACT</a>
-    </div>
+  <nav class="site-nav" id="site-nav">
+    <a href="#hero" class="nav-logo">Celia.</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
   </nav>
 
+  <!-- ═══ NAV OVERLAY ═══ -->
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+    <div class="overlay-links">
+      <a href="#work"    class="ol-link" data-num="01">Work</a>
+      <a href="#about"   class="ol-link" data-num="02">About</a>
+      <a href="mailto:celia.chuang11@gmail.com" class="ol-link" data-num="03">Contact</a>
+    </div>
+    <div class="overlay-footer">
+      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
   <!-- ═══ HERO ═══ -->
-  <section id="hero">
-    <div class="hero-meta-row">
-      <span class="meta">(PORTFOLIO)</span>
-      <span class="meta">DEVELOPER &amp; CREATIVE</span>
-      <span class="meta red">AVAILABLE FOR WORK</span>
+  <section id="hero" class="s-hero">
+    <div class="hero-top" data-reveal>
+      <span class="hero-tag">Portfolio — <span id="hero-year"></span></span>
+      <span class="hero-tag">Based in London</span>
     </div>
-
-    <div class="hero-body">
-      <div class="hero-left">
-        <p class="hero-serif">Based in<br /><em>the digital world</em></p>
-        <p class="hero-serif">Crafting<br /><em>thoughtful interfaces</em></p>
-        <p class="hero-serif">Driven by<br /><em>curiosity &amp; code</em></p>
-      </div>
-      <div class="hero-right">
-        <p class="hero-desc">Full-stack developer focused on building clean, purposeful web experiences. I work at the intersection of design and engineering.</p>
-        <a href="#projects" class="link-arrow">VIEW WORK →</a>
-      </div>
+    <div class="hero-center">
+      <h1 class="hero-name" data-reveal data-delay="0.1">
+        <em>Celia</em>
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="0.25">Developer &amp; Creative —<br>building thoughtful digital experiences.</p>
+      <a href="#work" class="btn-arrow" data-reveal data-delay="0.4">View Work <span>→</span></a>
     </div>
-
-    <div class="hero-bleed">
-      <span class="bleed-text">CELIA</span>
+    <div class="hero-bottom" data-reveal data-delay="0.5">
+      <span class="scroll-hint">Scroll ↓</span>
+      <span class="hero-tag">Full-Stack / UI</span>
     </div>
   </section>
+
+  <!-- ═══ WORK ═══ -->
+  <section id="work" class="s-work">
+    <div class="section-head" data-reveal>
+      <h2 class="section-label">Work</h2>
+      <span class="section-count">(03)</span>
+    </div>
+
+    <div class="projects-grid">
+
+      <article class="p-card" data-project="0" data-reveal data-delay="0.05">
+        <div class="p-card-media" style="background:#0d0d0d">
+          <span class="p-card-num">01</span>
+          <div class="p-card-hover">
+            <span class="p-cat">Web Development</span>
+            <h3>Project One</h3>
+            <span class="p-cta">View Project →</span>
+          </div>
+        </div>
+        <div class="p-card-foot">
+          <span class="p-card-title">Project One</span>
+          <span class="p-card-tags">HTML · CSS · JS</span>
+        </div>
+      </article>
+
+      <article class="p-card" data-project="1" data-reveal data-delay="0.15">
+        <div class="p-card-media" style="background:#990021">
+          <span class="p-card-num">02</span>
+          <div class="p-card-hover">
+            <span class="p-cat">Full-Stack App</span>
+            <h3>Project Two</h3>
+            <span class="p-cta">View Project →</span>
+          </div>
+        </div>
+        <div class="p-card-foot">
+          <span class="p-card-title">Project Two</span>
+          <span class="p-card-tags">React · Node · CSS</span>
+        </div>
+      </article>
+
+      <article class="p-card p-card--wide" data-project="2" data-reveal data-delay="0.25">
+        <div class="p-card-media" style="background:#2a2a2a">
+          <span class="p-card-num">03</span>
+          <div class="p-card-hover">
+            <span class="p-cat">Open Source</span>
+            <h3>Project Three</h3>
+            <span class="p-cta">View Project →</span>
+          </div>
+        </div>
+        <div class="p-card-foot">
+          <span class="p-card-title">Project Three</span>
+          <span class="p-card-tags">Python · API · CLI</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ═══ PROJECT DETAIL OVERLAY ═══ -->
+  <div class="project-detail" id="project-detail" aria-hidden="true">
+    <div class="pd-nav">
+      <button class="pd-close" id="pd-close" aria-label="Close project">← Back to Work</button>
+      <span class="pd-num" id="pd-num"></span>
+    </div>
+    <div class="pd-hero">
+      <div class="pd-hero-bg" id="pd-hero-bg"></div>
+      <div class="pd-hero-content">
+        <span class="pd-cat" id="pd-cat"></span>
+        <h2 class="pd-title" id="pd-title"></h2>
+        <div class="pd-meta">
+          <span id="pd-year"></span>
+          <span id="pd-type"></span>
+        </div>
+      </div>
+    </div>
+    <div class="pd-body">
+      <div class="pd-row">
+        <div class="pd-desc-col">
+          <h3 class="pd-heading">Overview</h3>
+          <p class="pd-desc" id="pd-desc"></p>
+        </div>
+        <div class="pd-details-col">
+          <h3 class="pd-heading">Details</h3>
+          <ul class="pd-detail-list" id="pd-detail-list"></ul>
+        </div>
+      </div>
+      <div class="pd-stack-row">
+        <h3 class="pd-heading">Stack</h3>
+        <div class="pd-tags" id="pd-tags"></div>
+      </div>
+      <div class="pd-blocks">
+        <div class="pd-block pd-block--dark"></div>
+        <div class="pd-block pd-block--light"></div>
+        <div class="pd-block pd-block--accent"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══ ABOUT ═══ -->
-  <section id="about">
-    <div class="section-header">
-      <span class="meta">(02)</span>
-      <h2 class="section-label">ABOUT</h2>
-      <span class="meta">PERSONAL</span>
+  <section id="about" class="s-about">
+    <div class="about-header" data-reveal>
+      <h2 class="section-label">About</h2>
     </div>
-    <div class="rule"></div>
-
     <div class="about-grid">
-      <div class="about-index">
-        <ul class="editorial-list">
-          <li>Developer</li>
-          <li><em>Designer</em></li>
-          <li>Problem Solver</li>
-          <li><em>Open Source</em></li>
-          <li>Coffee Enjoyer</li>
-        </ul>
-      </div>
-      <div class="about-content">
-        <p class="about-lead">Hello — I'm Celia.</p>
-        <p>I'm a developer who loves building things for the web. I enjoy turning complex problems into simple, beautiful, and intuitive solutions that people actually enjoy using.</p>
-        <p>My work lives at the intersection of clean engineering and considered design. I care deeply about performance, accessibility, and the small details that make an interface feel right.</p>
-        <p>When I'm not coding, I'm exploring new technologies, contributing to open source, or finding inspiration in editorial design, photography, and architecture.</p>
-        <div class="about-links">
-          <a href="https://github.com" target="_blank" class="text-link">GITHUB →</a>
-          <a href="https://linkedin.com" target="_blank" class="text-link">LINKEDIN →</a>
-          <a href="#" class="text-link">RESUME →</a>
+      <div class="about-visual" data-reveal data-delay="0.1">
+        <div class="about-monogram">C</div>
+        <div class="about-visual-meta">
+          <span>Developer</span>
+          <span>Designer</span>
+          <span>Builder</span>
         </div>
       </div>
-      <div class="about-year">
-        <span class="year-text">EST.<br />2020</span>
+      <div class="about-text">
+        <p class="about-intro" data-reveal data-delay="0.15"><em>"I build things people actually enjoy using."</em></p>
+        <p data-reveal data-delay="0.2">Hi, I'm Celia. I'm a full-stack developer who cares about both the engineering and the experience. I work at the intersection of clean code and considered design.</p>
+        <p data-reveal data-delay="0.25">I'm passionate about performance, accessibility, and the small details that make an interface feel right. Whether it's a polished UI or a well-architected API, I bring the same attention to craft.</p>
+        <p data-reveal data-delay="0.3">When I'm not coding, I'm exploring new technologies, contributing to open source, or finding inspiration in editorial design and photography.</p>
+        <div class="about-links" data-reveal data-delay="0.35">
+          <a href="https://github.com" target="_blank" class="text-link">GitHub →</a>
+          <a href="https://linkedin.com" target="_blank" class="text-link">LinkedIn →</a>
+          <a href="#" class="text-link">Resume →</a>
+        </div>
       </div>
     </div>
 
-    <div class="about-bleed">
-      <span class="bleed-text bleed-outline">ABOUT</span>
-    </div>
-  </section>
-
-  <!-- ═══ PROJECTS ═══ -->
-  <section id="projects">
-    <div class="section-header">
-      <span class="meta">(03)</span>
-      <h2 class="section-label">PROJECTS</h2>
-      <span class="meta">SELECTED WORK</span>
-    </div>
-    <div class="rule"></div>
-
-    <div class="projects-list">
-
-      <article class="project-row">
-        <div class="project-num">01</div>
-        <div class="project-info">
-          <h3 class="project-title">Project One</h3>
-          <p class="project-desc">A full-stack web application solving a real-world problem. Built with a focus on user experience, performance, and accessibility across all devices.</p>
-          <div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+    <div class="skills-block" data-reveal data-delay="0.1">
+      <div class="skills-row">
+        <div class="skill-group">
+          <h4>Frontend</h4>
+          <ul>
+            <li>HTML &amp; CSS</li><li>JavaScript</li><li>React</li><li>TypeScript</li>
+          </ul>
         </div>
-        <div class="project-links">
-          <a href="#" target="_blank" class="text-link">DEMO →</a>
-          <a href="#" target="_blank" class="text-link">GITHUB →</a>
+        <div class="skill-group">
+          <h4>Backend</h4>
+          <ul>
+            <li>Node.js</li><li>Python</li><li>SQL</li><li>REST APIs</li>
+          </ul>
         </div>
-      </article>
-      <div class="rule"></div>
-
-      <article class="project-row">
-        <div class="project-num">02</div>
-        <div class="project-info">
-          <h3 class="project-title">Project Two</h3>
-          <p class="project-desc">A responsive mobile-first application with a clean, minimal interface. Focused on fast load times and intuitive interactions.</p>
-          <div class="project-tags"><span>React</span><span>Node.js</span><span>CSS</span></div>
+        <div class="skill-group">
+          <h4>Tools</h4>
+          <ul>
+            <li>Git &amp; GitHub</li><li>Figma</li><li>VS Code</li><li>Linux / CLI</li>
+          </ul>
         </div>
-        <div class="project-links">
-          <a href="#" target="_blank" class="text-link">DEMO →</a>
-          <a href="#" target="_blank" class="text-link">GITHUB →</a>
-        </div>
-      </article>
-      <div class="rule"></div>
-
-      <article class="project-row">
-        <div class="project-num">03</div>
-        <div class="project-info">
-          <h3 class="project-title">Project Three</h3>
-          <p class="project-desc">An open-source developer tool that streamlines workflow. Used in production by hundreds of developers worldwide.</p>
-          <div class="project-tags"><span>Python</span><span>API</span><span>CLI</span></div>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank" class="text-link">DEMO →</a>
-          <a href="#" target="_blank" class="text-link">GITHUB →</a>
-        </div>
-      </article>
-      <div class="rule"></div>
-
-    </div>
-
-    <div class="projects-bleed">
-      <span class="bleed-text red-text">WORK</span>
-    </div>
-  </section>
-
-  <!-- ═══ SKILLS ═══ -->
-  <section id="skills">
-    <div class="section-header">
-      <span class="meta">(04)</span>
-      <h2 class="section-label">SKILLS</h2>
-      <span class="meta">CAPABILITIES</span>
-    </div>
-    <div class="rule"></div>
-
-    <div class="skills-grid">
-      <div class="skills-col">
-        <h3 class="skills-cat">Frontend</h3>
-        <ul class="skills-list">
-          <li><span>HTML &amp; CSS</span><span class="skill-pct">95</span></li>
-          <li><span>JavaScript</span><span class="skill-pct">90</span></li>
-          <li><span>React</span><span class="skill-pct">80</span></li>
-          <li><span>TypeScript</span><span class="skill-pct">75</span></li>
-        </ul>
       </div>
-      <div class="skills-col">
-        <h3 class="skills-cat">Backend</h3>
-        <ul class="skills-list">
-          <li><span>Node.js</span><span class="skill-pct">75</span></li>
-          <li><span>Python</span><span class="skill-pct">70</span></li>
-          <li><span>SQL</span><span class="skill-pct">65</span></li>
-          <li><span>REST APIs</span><span class="skill-pct">85</span></li>
-        </ul>
-      </div>
-      <div class="skills-col">
-        <h3 class="skills-cat">Tools</h3>
-        <ul class="skills-list">
-          <li><span>Git &amp; GitHub</span><span class="skill-pct">90</span></li>
-          <li><span>Figma</span><span class="skill-pct">70</span></li>
-          <li><span>VS Code</span><span class="skill-pct">95</span></li>
-          <li><span>Linux / CLI</span><span class="skill-pct">80</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="skills-bleed">
-      <span class="bleed-text bleed-outline">SKILLS</span>
     </div>
   </section>
 
   <!-- ═══ CONTACT ═══ -->
-  <section id="contact">
-    <div class="section-header">
-      <span class="meta">(05)</span>
-      <h2 class="section-label">CONTACT</h2>
-      <span class="meta">GET IN TOUCH</span>
-    </div>
-    <div class="rule"></div>
-
-    <div class="contact-grid">
-      <div class="contact-left">
-        <p class="contact-serif"><em>Have a project<br />in mind?</em></p>
-        <p class="contact-body">I'm always open to interesting work and new collaborations. Drop me a message and I'll get back to you soon.</p>
-        <p class="contact-email"><a href="mailto:hello@celia.dev" class="text-link">HELLO@CELIA.DEV →</a></p>
-      </div>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
-        <div class="form-group">
-          <label for="name">NAME</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required />
-        </div>
-        <div class="form-group">
-          <label for="email">EMAIL</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required />
-        </div>
-        <div class="form-group">
-          <label for="subject">SUBJECT</label>
-          <input type="text" id="subject" name="subject" placeholder="What's this about?" required />
-        </div>
-        <div class="form-group">
-          <label for="message">MESSAGE</label>
-          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">SEND MESSAGE →</button>
-        <p id="form-status" class="form-status" aria-live="polite"></p>
-      </form>
-    </div>
-
-    <div class="contact-bleed">
-      <span class="bleed-text red-text">CELIA</span>
+  <section id="contact" class="s-contact">
+    <div class="contact-inner" data-reveal>
+      <span class="section-label-sm">Contact</span>
+      <h2 class="contact-heading"><em>Say hello.</em></h2>
+      <p class="contact-sub">Have a project in mind, or just want to chat? My inbox is always open.</p>
+      <a href="mailto:celia.chuang11@gmail.com" class="contact-email">
+        celia.chuang11@gmail.com
+        <span class="email-arrow">↗</span>
+      </a>
     </div>
   </section>
 
   <!-- ═══ FOOTER ═══ -->
-  <footer>
-    <div class="rule"></div>
+  <footer class="site-footer">
     <div class="footer-inner">
-      <span class="meta">CELIA — PORTFOLIO</span>
-      <span class="meta">&copy; <span id="year"></span></span>
-      <span class="meta">DESIGNED &amp; BUILT BY CELIA</span>
+      <span>Celia — Portfolio</span>
+      <span>&copy; <span id="footer-year"></span></span>
+      <span>Designed &amp; Built by Celia</span>
     </div>
   </footer>
 
