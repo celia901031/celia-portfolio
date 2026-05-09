@@ -46,6 +46,16 @@ const y = new Date().getFullYear();
 document.getElementById('hero-year').textContent = y;
 document.getElementById('footer-year').textContent = y;
 
+// ── Hero entrance reveal ──────────────────────────────────────────────────
+let _revealed = false;
+function triggerReveal() {
+  if (_revealed) return;
+  _revealed = true;
+  requestAnimationFrame(() => document.body.classList.add('loaded'));
+}
+document.fonts.ready.then(triggerReveal);
+setTimeout(triggerReveal, 1500);
+
 // ── Nav toggle ─────────────────────────────────────────────────────────────
 function openNav() {
   navToggle.classList.add('active');
@@ -140,3 +150,25 @@ pdOverlay.addEventListener('scroll', () => {
   const bg = document.getElementById('pd-hero-bg');
   if (bg) bg.style.transform = `translateY(${pdOverlay.scrollTop * 0.3}px)`;
 }, { passive: true });
+
+// ── Custom cursor ──────────────────────────────────────────────────────────
+if (window.matchMedia('(pointer: fine)').matches) {
+  document.body.classList.add('has-cursor');
+  const cur = document.getElementById('cursor');
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let cx = mx, cy = my;
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('cursor-lg'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('cursor-lg'));
+  });
+
+  (function tick() {
+    cx += (mx - cx) * 0.1;
+    cy += (my - cy) * 0.1;
+    cur.style.transform = `translate(${cx - 10}px, ${cy - 10}px)`;
+    requestAnimationFrame(tick);
+  })();
+}

@@ -11,10 +11,17 @@
 </head>
 <body>
 
+  <div id="cursor"></div>
+
   <!-- ═══ NAV ═══ -->
   <nav class="site-nav" id="site-nav">
-    <a href="#hero" class="nav-logo">Celia.</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <a href="#hero" class="nav-logo hero-fade" style="--i:0">Celia.</a>
+    <div class="nav-desktop">
+      <a href="#work"  class="nav-desk-link hero-fade" style="--i:1">Work</a>
+      <a href="#about" class="nav-desk-link hero-fade" style="--i:2">About</a>
+      <a href="mailto:celia.chuang11@gmail.com" class="nav-desk-link hero-fade" style="--i:3">Contact</a>
+    </div>
+    <button class="nav-toggle hero-fade" id="nav-toggle" style="--i:1" aria-label="Toggle menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
@@ -35,21 +42,49 @@
 
   <!-- ═══ HERO ═══ -->
   <section id="hero" class="s-hero">
-    <div class="hero-top" data-reveal>
-      <span class="hero-tag">Portfolio — <span id="hero-year"></span></span>
-      <span class="hero-tag">Based in London</span>
+
+    <div class="hero-top">
+      <span class="hero-tag hero-fade" style="--i:2">Portfolio — <span id="hero-year"></span></span>
+      <span class="hero-tag hero-fade" style="--i:2">Based in London</span>
     </div>
+
     <div class="hero-center">
-      <h1 class="hero-name" data-reveal data-delay="0.1">
-        <em>Celia</em>
+      <h1 class="hero-name">
+        <span class="reveal"><em class="ri" style="--i:2">Celia</em></span>
       </h1>
-      <p class="hero-sub" data-reveal data-delay="0.25">Developer &amp; Creative —<br>building thoughtful digital experiences.</p>
-      <a href="#work" class="btn-arrow" data-reveal data-delay="0.4">View Work <span>→</span></a>
+      <div class="hero-sub-row">
+        <div class="hero-sub">
+          <div class="reveal"><span class="ri" style="--i:3">Developer &amp; Creative —</span></div>
+          <div class="reveal"><span class="ri" style="--i:4">building thoughtful digital experiences.</span></div>
+        </div>
+        <div class="hero-cta-wrap" style="--i:5">
+          <a href="#work" class="btn-arrow">View Work <span>→</span></a>
+        </div>
+      </div>
     </div>
-    <div class="hero-bottom" data-reveal data-delay="0.5">
-      <span class="scroll-hint">Scroll ↓</span>
-      <span class="hero-tag">Full-Stack / UI</span>
+
+    <div class="hero-bottom">
+      <span class="scroll-hint hero-fade" style="--i:5">Scroll ↓</span>
+      <span class="hero-tag hero-fade" style="--i:5">Full-Stack / UI</span>
     </div>
+
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <span>Developer</span><span class="msep">·</span>
+        <span>Creative</span><span class="msep">·</span>
+        <span>Full-Stack</span><span class="msep">·</span>
+        <span>UI Design</span><span class="msep">·</span>
+        <span>Available for Work</span><span class="msep">·</span>
+        <span>London</span><span class="msep">·</span>
+        <span>Developer</span><span class="msep">·</span>
+        <span>Creative</span><span class="msep">·</span>
+        <span>Full-Stack</span><span class="msep">·</span>
+        <span>UI Design</span><span class="msep">·</span>
+        <span>Available for Work</span><span class="msep">·</span>
+        <span>London</span><span class="msep">·</span>
+      </div>
+    </div>
+
   </section>
 
   <!-- ═══ WORK ═══ -->
