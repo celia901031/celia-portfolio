@@ -1,261 +1,834 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Celia — Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Celia Chuang — Creative Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f1eae0;
+    --bg-soft:#ebe2d5;
+    --line:rgba(26,22,20,0.18);
+    --fg:#1a1614;             /* default = black mode */
+    --fg-soft:rgba(26,22,20,0.62);
+    --fg-faint:rgba(26,22,20,0.35);
+    --ease:cubic-bezier(.7,.02,.18,1);
+    --t-slow:900ms;
+    --t-med:560ms;
+    --t-fast:240ms;
+  }
+  /* ============ INTRO COUNTDOWN ============ */
+  body.intro-locked{overflow:hidden}
+  .intro{
+    position:fixed;inset:0;z-index:200;background:var(--bg);color:var(--fg);
+    transition:opacity 1s var(--ease), transform 1s var(--ease), clip-path 1.1s var(--ease);
+    will-change:transform,opacity,clip-path;
+    clip-path:inset(0 0 0 0);
+  }
+  .intro.out{
+    pointer-events:none;
+    clip-path:inset(0 0 100% 0);
+    opacity:0.0;
+  }
+  .intro-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .intro-count{font-family:'DM Serif Display',serif;font-size:clamp(120px,22vw,360px);line-height:0.9;letter-spacing:-0.03em;color:var(--fg);font-feature-settings:"tnum";position:relative}
+  .intro-count::after{
+    content:"%";
+    font-size:0.35em;
+    position:absolute;top:0;right:-0.4em;
+    opacity:0.7;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html[data-mode="dark"]{
+    --bg:#1a1614;
+    --bg-soft:#26211e;
+    --line:rgba(241,234,224,0.18);
+    --fg:#f1eae0;
+    --fg-soft:rgba(241,234,224,0.62);
+    --fg-faint:rgba(241,234,224,0.32);
+  }
+  html,body{background:var(--bg);color:var(--fg);transition:background var(--t-med) var(--ease), color var(--t-med) var(--ease)}
+  body{
+    font-family:'Space Mono',ui-monospace,monospace;
+    font-size:13px;
+    line-height:1.6;
+    letter-spacing:0.01em;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  ::selection{background:var(--fg);color:var(--bg)}
+
+  .serif{font-family:'DM Serif Display',serif;font-weight:400;letter-spacing:-0.01em;line-height:0.94}
+
+  /* ============ FIXED CHROME ============ */
+  .chrome{
+    position:fixed;top:0;left:0;right:0;pointer-events:none;z-index:50;
+    padding:28px 36px;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;
+  }
+  .chrome > *{pointer-events:auto}
+  .mark{font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:-0.01em;line-height:1}
+  .mark a{display:inline-flex;align-items:center}
+  .mark a:hover{font-style:italic;color:var(--fg-soft)}
+
+  nav.primary{
+    display:flex;gap:28px;align-items:center;
+    font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  }
+  nav.primary a{position:relative;padding:6px 2px;color:var(--fg-soft);transition:color var(--t-fast) var(--ease)}
+  nav.primary a:hover{color:var(--fg)}
+  nav.primary a.active{color:var(--fg)}
+  nav.primary a.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fg);
+    animation:underline var(--t-med) var(--ease) both;
+  }
+  @keyframes underline{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+
+  .chrome-right{display:flex;align-items:center;gap:24px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase}
+
+  /* mode toggle (yan-liu inspired) */
+  .mode-tog{
+    width:38px;height:22px;border:1px solid var(--fg);border-radius:99px;
+    position:relative;cursor:pointer;background:transparent;
+    transition:background var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+  }
+  .mode-tog .knob{
+    position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:99px;
+    background:var(--fg);transition:transform var(--t-med) var(--ease), background var(--t-med) var(--ease);
+  }
+  html[data-mode="dark"] .mode-tog .knob{transform:translateX(16px)}
+  .mode-tog::before,.mode-tog::after{
+    content:"";position:absolute;top:50%;width:8px;height:8px;border-radius:99px;
+    transform:translateY(-50%);transition:opacity var(--t-med) var(--ease);
+  }
+  .mode-tog::before{left:5px;background:transparent;border:1px solid var(--fg);opacity:0.5}
+  .mode-tog::after{right:5px;background:transparent;border:1px solid var(--fg);box-shadow:inset -3px 0 0 var(--fg);opacity:0.5}
+
+  /* ============ VIEW SHELL ============ */
+  main{min-height:100vh;position:relative}
+  .view{
+    position:absolute;inset:0;width:100%;
+    opacity:0;pointer-events:none;
+    transform:translateY(14px);
+    transition:opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+  }
+  .view.is-active{position:relative;opacity:1;transform:none;pointer-events:auto}
+
+  /* ============ HOME ============ */
+  .home{
+    min-height:100vh;
+    display:grid;grid-template-rows:1fr auto;
+    padding:0 36px 36px;
+  }
+  .home-hero{
+    display:grid;grid-template-columns:1fr 1fr;align-items:end;
+    padding-top:140px;
+    max-width:1500px;margin:0 auto;width:100%;
+    min-height:78vh;
+    gap:0;
+  }
+  .home-hero .left{align-self:start}
+  .home-hero .right{align-self:end;text-align:right;margin-top:-0.08em}
+  .home-eyebrow{
+    font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--fg-soft);
+    display:flex;align-items:center;gap:14px;margin-bottom:36px;
+  }
+  .home-eyebrow .bar{width:48px;height:1px;background:var(--fg)}
+  .home-name{
+    font-size:clamp(72px,17vw,260px);
+    letter-spacing:-0.03em;
+  }
+  .home-name.letter-slide {
+    display: inline-flex;
+    flex-wrap: wrap;
+    line-height: 1;
+  }
+  .home-name.letter-slide span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(1.2em);
+    animation: letterSlideUp 0.8s var(--ease) forwards;
+  }
+  .home-name.letter-slide span:nth-child(1) { animation-delay: 0s; }
+  .home-name.letter-slide span:nth-child(2) { animation-delay: 0.08s; }
+  .home-name.letter-slide span:nth-child(3) { animation-delay: 0.16s; }
+  .home-name.letter-slide span:nth-child(4) { animation-delay: 0.24s; }
+  .home-name.letter-slide span:nth-child(5) { animation-delay: 0.32s; }
+  .home-name.letter-slide span:nth-child(6) { animation-delay: 0.4s; }
+  .home-name.letter-slide span:nth-child(7) { animation-delay: 0.48s; }
+  @keyframes letterSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(1.2em);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .home-name.it{font-style:italic;color:var(--fg)}
+  .home-sub{margin-top:32px;max-width:38ch;color:var(--fg-soft)}
+  .home-cta{justify-self:end;display:flex;gap:14px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--fg);border-radius:99px;
+    padding:14px 22px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+    transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), border-color var(--t-med) var(--ease);
+  }
+  .btn:hover{background:var(--fg);color:var(--bg)}
+  .btn .arrow{display:inline-block;transition:transform var(--t-fast) var(--ease)}
+  .btn:hover .arrow{transform:translateX(4px)}
+  /* Gallery (home) */
+  .gallery{padding:60px 0 100px;max-width:1500px;margin:0 auto;width:100%}
+  .gallery-head{
+    display:flex;justify-content:space-between;align-items:baseline;margin-bottom:32px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--fg-soft);
+  }
+  .gallery-head .label:first-child{font-family:'DM Serif Display',serif;font-size:clamp(40px,5vw,72px);letter-spacing:-0.01em;line-height:1;text-transform:none;color:var(--fg);margin-bottom:0}
+  .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:80px;gap:18px}
+  .g-tile{position:relative;overflow:hidden;display:block;cursor:pointer}
+  .g-tile img{width:100%;height:100%;object-fit:cover}
+  .g-tile::after{content:"";position:absolute;inset:0;background:var(--fg);opacity:0;transition:opacity var(--t-med) var(--ease)}
+  .g-tile:hover::after{opacity:0.04}
+  .g-tile.g-1{grid-column:1 / span 5;grid-row:span 7}
+  .g-tile.g-2{grid-column:6 / span 7;grid-row:span 5}
+  .g-tile.g-3{grid-column:6 / span 3;grid-row:span 4}
+  .g-tile.g-4{grid-column:9 / span 4;grid-row:span 4}
+  @media (max-width:780px){
+    .gallery-grid{grid-template-columns:1fr;grid-auto-rows:60vh}
+    .g-tile.g-1,.g-tile.g-2,.g-tile.g-3,.g-tile.g-4{grid-column:1 / -1;grid-row:span 1}
+  }
+
+  /* ============ WORK ============ */
+  .work{padding:120px 36px 100px;max-width:100%;margin:0}
+  .section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:60px;max-width:1400px;margin-left:auto;margin-right:auto}
+  .section-head h2{font-size:clamp(40px,5vw,72px);text-transform:none;flex:1}
+  .section-head .meta{font-size:11px;letter-spacing:0.18em;color:var(--fg-soft)}
+
+  .work-stack{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1400px;margin:0 auto}
+  .work-card{position:relative;display:block;cursor:pointer;aspect-ratio:3/4;overflow:hidden;background:var(--bg-soft)}
+  .work-card .frame{position:relative;width:100%;height:100%;overflow:hidden}
+  .work-card .frame .inner{position:absolute;inset:0;transition:transform 1.2s var(--ease);will-change:transform}
+  .work-card:hover .frame .inner{transform:scale(1.05)}
+  .work-card .overlay{
+    position:absolute;inset:0;background:rgba(26,22,20,0.88);opacity:0;z-index:2;
+    transition:opacity var(--t-med) var(--ease);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;
+  }
+  html[data-mode="dark"] .work-card .overlay{background:rgba(241,234,224,0.88)}
+  .work-card:hover .overlay{opacity:1}
+  .work-card .overlay .title{
+    font-family:'DM Serif Display',serif;font-size:clamp(22px,3.2vw,48px);line-height:1.05;letter-spacing:-0.01em;
+    color:var(--bg);margin-bottom:12px;
+  }
+  html[data-mode="dark"] .work-card .overlay .title{color:var(--bg-soft)}
+  .work-card .overlay .cat{
+    font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
+    color:rgba(var(--bg),0.65);
+  }
+  @media (max-width:900px){
+    .work-stack{grid-template-columns:1fr}
+  }
+
+  /* cursor preview */  /* cursor preview */
+  .preview{
+    position:fixed;pointer-events:none;z-index:30;
+    width:340px;height:440px;
+    transform:translate(-50%,-50%) scale(0.9);
+    opacity:0;transition:opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+    overflow:hidden;
+  }
+  .preview.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .preview .slot{width:100%;height:100%;background:var(--bg-soft);position:relative}
+
+  /* ============ PROJECT ============ */
+  .project{padding:120px 36px 80px;max-width:1500px;margin:0 auto}
+  .pj-back{display:none}
+  .pj-head{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:32px;margin-bottom:0}
+  .pj-head .num{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--fg-soft);margin-bottom:18px}
+  .pj-title{font-size:clamp(56px,11vw,180px);letter-spacing:-0.025em}
+  .pj-meta{display:grid;grid-template-columns:auto auto;gap:14px 48px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase}
+  .pj-meta dt{color:var(--fg-soft)}
+  .pj-meta dd{color:var(--fg)}
+
+  .pj-hero{
+    margin-top:48px;height:72vh;min-height:520px;
+    background:var(--bg-soft);position:relative;overflow:hidden;
+  }
+
+  .pj-section{padding:80px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .pj-section .label{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--fg-soft);margin-bottom:18px}
+  .pj-section h3{font-family:'DM Serif Display',serif;font-size:clamp(28px,3.2vw,48px);line-height:1.05;letter-spacing:-0.01em;max-width:18ch}
+  .pj-section .body{font-size:13px;line-height:1.85;color:var(--fg-soft);max-width:46ch}
+  .pj-section .body p+p{margin-top:1em}
+
+  .pj-grid{display:grid;gap:24px;margin:24px 0}
+  .pj-grid.g-2{grid-template-columns:1fr 1fr}
+  .pj-grid.g-12{grid-template-columns:1fr 2fr}
+  .pj-grid.g-21{grid-template-columns:2fr 1fr}
+  .pj-tile{background:var(--bg-soft);position:relative;overflow:hidden}
+  .pj-tile.h-sm{height:48vh;min-height:380px}
+  .pj-tile.h-md{height:64vh;min-height:480px}
+  .pj-tile.h-lg{height:84vh;min-height:600px}
+
+  .pj-quote{padding:120px 0;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .pj-quote q{font-family:'DM Serif Display',serif;font-size:clamp(32px,4.4vw,68px);line-height:1.1;letter-spacing:-0.01em;display:block;max-width:18ch;margin:0 auto;quotes:none}
+  .pj-quote q::before,.pj-quote q::after{content:""}
+  .pj-quote .by{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--fg-soft);margin-top:32px;display:block}
+
+  .pj-next{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:end;padding:80px 0 0;border-top:1px solid var(--line);margin-top:48px}
+  .pj-next .label{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--fg-soft)}
+  .pj-next a{font-family:'DM Serif Display',serif;font-size:clamp(40px,7vw,120px);line-height:1;letter-spacing:-0.02em}
+  .pj-next a:hover{font-style:italic;color:var(--fg-soft)}
+  .pj-next .arr{font-size:24px}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(28px) scale(0.992);filter:blur(4px);transition:opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease), filter var(--t-slow) var(--ease)}
+  .reveal.in{opacity:1;transform:none;filter:none}
+
+  /* ============ ABOUT ============ */
+  .about{padding:140px 36px 80px;max-width:1500px;margin:0 auto}
+  .ab-hero{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:80px}
+  .ab-hero h1{font-size:clamp(56px,9vw,160px);letter-spacing:-0.025em}
+  .ab-hero .lede{font-size:14px;line-height:1.7;color:var(--fg);max-width:42ch}
+  .ab-hero .lede em{font-family:'DM Serif Display',serif;font-style:italic;font-size:1.15em}
+
+  .ab-portrait{height:88vh;min-height:640px;background:var(--bg-soft);position:relative;overflow:hidden;margin-bottom:80px}
+
+  .ab-section{display:grid;grid-template-columns:280px 1fr;gap:48px;padding:60px 0;border-top:1px solid var(--line)}
+  .ab-section .label{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--fg-soft)}
+  .ab-section h3{font-family:'DM Serif Display',serif;font-size:clamp(24px,2.4vw,36px);line-height:1.2;margin-bottom:18px;letter-spacing:-0.01em}
+  .ab-section p{font-size:14px;line-height:1.85;color:var(--fg-soft);max-width:62ch}
+  .ab-section p+p{margin-top:1em}
+  .ab-list{display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+  .ab-list .row{display:grid;grid-template-columns:80px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:0.04em}
+  .ab-list .row .yr{color:var(--fg-soft)}
+  .ab-list .row .what{color:var(--fg)}
+
+  /* ============ CONTACT ============ */
+  .contact{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:140px 36px 80px;text-align:center;position:relative}
+  .contact .label{font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--fg-soft);margin-bottom:32px}
+  .contact h1{font-size:clamp(40px,6vw,96px);letter-spacing:-0.02em;line-height:1.05;max-width:14ch;margin:0 auto 48px}
+  .contact h1 em{font-style:italic;color:var(--fg-soft)}
+  .contact .mail{
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(36px,7vw,108px);
+    letter-spacing:-0.02em;
+    display:inline-block;position:relative;line-height:1;
+  }
+  .contact .mail::after{content:"";position:absolute;left:0;right:0;bottom:6%;height:2px;background:var(--fg);transform:scaleX(0);transform-origin:left;transition:transform var(--t-med) var(--ease)}
+  .contact .mail:hover::after{transform:scaleX(1)}
+  .contact .mail:hover{font-style:italic}
+  .contact .also{margin-top:64px;display:flex;gap:32px;justify-content:center;font-size:11px;letter-spacing:0.18em;text-transform:uppercase}
+  .contact .also a{color:var(--fg-soft)}
+  .contact .also a:hover{color:var(--fg)}
+
+  /* footer */
+  footer.foot{
+    background:#1a1614;color:#f1eae0;
+    margin:80px 0 0;padding:48px 36px 36px;
+    position:relative;overflow:hidden;
+  }
+  footer.foot .foot-meta{
+    display:flex;justify-content:space-between;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    color:rgba(241,234,224,0.55);padding-bottom:18px;border-bottom:1px solid rgba(241,234,224,0.18);
+  }
+  footer.foot .foot-meta a:hover{color:#f1eae0}
+  footer.foot .foot-name{
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(60px,14vw,200px);
+    line-height:0.9;letter-spacing:-0.035em;
+    padding:36px 0 0;display:flex;justify-content:space-between;align-items:end;
+    white-space:nowrap;gap:1em;
+  }
+  footer.foot .foot-name .it{font-style:italic;color:rgba(241,234,224,0.78)}
+
+  /* placeholder texture */
+  .ph{
+    --c: rgba(26,22,20,0.07);
+    background-color:var(--bg-soft);
+    background-image:
+      repeating-linear-gradient(135deg, transparent 0 14px, var(--c) 14px 15px);
+    color:var(--fg-faint);
+  }
+  html[data-theme="red"] .ph{--c:rgba(163,29,34,0.10)}
+  .ph .ph-tag{
+    position:absolute;left:18px;bottom:16px;
+    font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--fg-soft);
+  }
+  .ph .ph-num{
+    position:absolute;right:18px;top:16px;
+    font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;color:var(--fg-soft);
+  }
+
+  /* small screens */
+  @media (max-width:780px){
+    .chrome{padding:18px 18px;grid-template-columns:1fr auto;}
+    nav.primary{display:none}
+    .home{padding:0 18px 18px}
+    .home-sub{grid-template-columns:1fr;gap:24px}
+    .home-cta{justify-self:start}
+    .home-foot{grid-template-columns:1fr}
+    .home-foot .center,.home-foot .right{text-align:left}
+    .work,.project,.about,.contact{padding-left:18px;padding-right:18px}
+    .work-row{grid-template-columns:32px 1fr auto;gap:14px}
+    .work-row .cat,.work-row .yr{display:none}
+    .section-head{grid-template-columns:1fr;gap:14px}
+    .pj-head{grid-template-columns:1fr}
+    .pj-section{grid-template-columns:1fr;gap:18px}
+    .pj-grid.g-2,.pj-grid.g-12,.pj-grid.g-21{grid-template-columns:1fr}
+    .ab-hero{grid-template-columns:1fr;gap:32px}
+    .ab-section{grid-template-columns:1fr;gap:18px}
+    .ab-list{grid-template-columns:1fr}
+    .preview{display:none}
+    footer.foot{grid-template-columns:1fr;text-align:left}
+    footer.foot .center,footer.foot .right{text-align:left}
+  }
+</style>
+<template id="__bundler_thumbnail" data-bg-color="#f1eae0">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f1eae0"/>
+    <text x="600" y="350" font-family="DM Serif Display, serif" font-size="240" letter-spacing="-8" text-anchor="middle" fill="#1a1614">CC</text>
+    <text x="600" y="450" font-family="Space Mono, monospace" font-size="24" letter-spacing="3" text-anchor="middle" fill="#1a1614" opacity="0.6">CREATIVE PORTFOLIO</text>
+  </svg>
+</template>
 </head>
 <body>
 
-  <div id="cursor"></div>
+<!-- Fixed top chrome -->
+<div class="chrome" data-screen-label="Chrome">
+  <div class="mark"><a href="#/" aria-label="Home">Celia.C</a></div>
+  <div class="chrome-right">
+    <nav class="primary" id="nav">
+      <a href="#/work" data-route="work">Work</a>
+      <a href="#/about" data-route="about">About</a>
 
-  <!-- ═══ NAV ═══ -->
-  <nav class="site-nav" id="site-nav">
-    <a href="#hero" class="nav-logo hero-fade" style="--i:0">Celia.C</a>
-    <div class="nav-desktop">
-      <a href="#work"  class="nav-desk-link hero-fade" style="--i:1">Work</a>
-      <a href="#about" class="nav-desk-link hero-fade" style="--i:2">About</a>
-      <a href="mailto:celia.chuang11@gmail.com" class="nav-desk-link hero-fade" style="--i:3">Contact</a>
-    </div>
-    <button class="nav-toggle hero-fade" id="nav-toggle" style="--i:1" aria-label="Toggle menu" aria-expanded="false">
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-  </nav>
-
-  <!-- ═══ NAV OVERLAY ═══ -->
-  <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
-    <div class="overlay-links">
-      <a href="#work"    class="ol-link" data-num="01">Work</a>
-      <a href="#about"   class="ol-link" data-num="02">About</a>
-      <a href="mailto:celia.chuang11@gmail.com" class="ol-link" data-num="03">Contact</a>
-    </div>
-    <div class="overlay-footer">
-      <a href="https://github.com" target="_blank">GitHub</a>
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-    </div>
+    </nav>
+    <button class="mode-tog" id="modeTog" aria-label="Toggle light / dark mode"><span class="knob"></span></button>
   </div>
+</div>
 
-  <!-- ═══ HERO ═══ -->
-  <section id="hero" class="s-hero">
-
-    <div class="hero-top">
-      <span class="hero-tag hero-fade" style="--i:2">Based in London</span>
-    </div>
-
-    <div class="hero-center">
-      <h1 class="hero-name">
-        <span class="reveal"><em class="ri" style="--i:2">CELIA CHUANG</em></span>
-      </h1>
-      <div class="hero-sub-row">
-        <div class="hero-sub">
-          <div class="reveal"><span class="ri" style="--i:3">Developer &amp; Creative —</span></div>
-          <div class="reveal"><span class="ri" style="--i:4">building thoughtful digital experiences.</span></div>
-        </div>
-        <div class="hero-cta-wrap" style="--i:5">
-          <a href="work.html" class="btn-arrow">View Work <span>→</span></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-bottom">
-      <span class="scroll-hint hero-fade" style="--i:5">Scroll ↓</span>
-      <span class="hero-tag hero-fade" style="--i:5">Full-Stack / UI</span>
-    </div>
-
-    <div class="marquee-wrap">
-      <div class="marquee-track">
-        <span>Developer</span><span class="msep">·</span>
-        <span>Creative</span><span class="msep">·</span>
-        <span>Full-Stack</span><span class="msep">·</span>
-        <span>UI Design</span><span class="msep">·</span>
-        <span>Available for Work</span><span class="msep">·</span>
-        <span>London</span><span class="msep">·</span>
-        <span>Developer</span><span class="msep">·</span>
-        <span>Creative</span><span class="msep">·</span>
-        <span>Full-Stack</span><span class="msep">·</span>
-        <span>UI Design</span><span class="msep">·</span>
-        <span>Available for Work</span><span class="msep">·</span>
-        <span>London</span><span class="msep">·</span>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ═══ WORK ═══ -->
-  <section id="work" class="s-work">
-    <div class="section-head" data-reveal>
-      <h2 class="section-label">Work</h2>
-      <span class="section-count">(03)</span>
-    </div>
-
-    <div class="projects-grid">
-
-      <article class="p-card" data-project="0" data-reveal data-delay="0.05">
-        <div class="p-card-media" style="background:#0d0d0d">
-          <span class="p-card-num">01</span>
-          <div class="p-card-hover">
-            <span class="p-cat">Web Development</span>
-            <h3>Project One</h3>
-            <span class="p-cta">View Project →</span>
-          </div>
-        </div>
-        <div class="p-card-foot">
-          <span class="p-card-title">Project One</span>
-          <span class="p-card-tags">HTML · CSS · JS</span>
-        </div>
-      </article>
-
-      <article class="p-card" data-project="1" data-reveal data-delay="0.15">
-        <div class="p-card-media" style="background:#990021">
-          <span class="p-card-num">02</span>
-          <div class="p-card-hover">
-            <span class="p-cat">Full-Stack App</span>
-            <h3>Project Two</h3>
-            <span class="p-cta">View Project →</span>
-          </div>
-        </div>
-        <div class="p-card-foot">
-          <span class="p-card-title">Project Two</span>
-          <span class="p-card-tags">React · Node · CSS</span>
-        </div>
-      </article>
-
-      <article class="p-card p-card--wide" data-project="2" data-reveal data-delay="0.25">
-        <div class="p-card-media" style="background:#2a2a2a">
-          <span class="p-card-num">03</span>
-          <div class="p-card-hover">
-            <span class="p-cat">Open Source</span>
-            <h3>Project Three</h3>
-            <span class="p-cta">View Project →</span>
-          </div>
-        </div>
-        <div class="p-card-foot">
-          <span class="p-card-title">Project Three</span>
-          <span class="p-card-tags">Python · API · CLI</span>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ═══ PROJECT DETAIL OVERLAY ═══ -->
-  <div class="project-detail" id="project-detail" aria-hidden="true">
-    <div class="pd-nav">
-      <button class="pd-close" id="pd-close" aria-label="Close project">← Back to Work</button>
-      <span class="pd-num" id="pd-num"></span>
-    </div>
-    <div class="pd-hero">
-      <div class="pd-hero-bg" id="pd-hero-bg"></div>
-      <div class="pd-hero-content">
-        <span class="pd-cat" id="pd-cat"></span>
-        <h2 class="pd-title" id="pd-title"></h2>
-        <div class="pd-meta">
-          <span id="pd-year"></span>
-          <span id="pd-type"></span>
-        </div>
-      </div>
-    </div>
-    <div class="pd-body">
-      <div class="pd-row">
-        <div class="pd-desc-col">
-          <h3 class="pd-heading">Overview</h3>
-          <p class="pd-desc" id="pd-desc"></p>
-        </div>
-        <div class="pd-details-col">
-          <h3 class="pd-heading">Details</h3>
-          <ul class="pd-detail-list" id="pd-detail-list"></ul>
-        </div>
-      </div>
-      <div class="pd-stack-row">
-        <h3 class="pd-heading">Stack</h3>
-        <div class="pd-tags" id="pd-tags"></div>
-      </div>
-      <div class="pd-blocks">
-        <div class="pd-block pd-block--dark"></div>
-        <div class="pd-block pd-block--light"></div>
-        <div class="pd-block pd-block--accent"></div>
-      </div>
-    </div>
+<!-- Intro / countdown overlay -->
+<div class="intro" id="intro" aria-hidden="false">
+  <div class="intro-center">
+    <span class="intro-count" id="introCount">000</span>
   </div>
+</div>
 
-  <!-- ═══ ABOUT ═══ -->
-  <section id="about" class="s-about">
-    <div class="about-header" data-reveal>
-      <h2 class="section-label">About</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-visual" data-reveal data-delay="0.1">
-        <div class="about-monogram">C</div>
-        <div class="about-visual-meta">
-          <span>Developer</span>
-          <span>Designer</span>
-          <span>Builder</span>
-        </div>
+<!-- Hover preview thumb (work list) -->
+<div class="preview" id="preview" aria-hidden="true">
+  <div class="slot ph" id="previewSlot"><span class="ph-tag" id="previewTag">project image</span></div>
+</div>
+
+<main id="main">
+
+  <!-- ============ HOME ============ -->
+  <section class="view home" data-view="home" data-screen-label="01 Home">
+    <div class="home-hero">
+      <div class="left">
+        <h1 class="serif home-name">Celia</h1>
+        <p class="home-sub">Creative entry-level marketing professional based in London. Working at the intersection of brand, retail and editorial — building stories that make objects feel inevitable.</p>
       </div>
-      <div class="about-text">
-        <p class="about-intro" data-reveal data-delay="0.15"><em>"I build things people actually enjoy using."</em></p>
-        <p data-reveal data-delay="0.2">Hi, I'm Celia. I'm a full-stack developer who cares about both the engineering and the experience. I work at the intersection of clean code and considered design.</p>
-        <p data-reveal data-delay="0.25">I'm passionate about performance, accessibility, and the small details that make an interface feel right. Whether it's a polished UI or a well-architected API, I bring the same attention to craft.</p>
-        <p data-reveal data-delay="0.3">When I'm not coding, I'm exploring new technologies, contributing to open source, or finding inspiration in editorial design and photography.</p>
-        <div class="about-links" data-reveal data-delay="0.35">
-          <a href="https://github.com" target="_blank" class="text-link">GitHub →</a>
-          <a href="https://linkedin.com" target="_blank" class="text-link">LinkedIn →</a>
-          <a href="#" class="text-link">Resume →</a>
-        </div>
+      <div class="right">
+        <h1 class="serif home-name it" style="padding: 0px">Chuang</h1>
       </div>
     </div>
 
-    <div class="skills-block" data-reveal data-delay="0.1">
-      <div class="skills-row">
-        <div class="skill-group">
-          <h4>Frontend</h4>
-          <ul>
-            <li>HTML &amp; CSS</li><li>JavaScript</li><li>React</li><li>TypeScript</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h4>Backend</h4>
-          <ul>
-            <li>Node.js</li><li>Python</li><li>SQL</li><li>REST APIs</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h4>Tools</h4>
-          <ul>
-            <li>Git &amp; GitHub</li><li>Figma</li><li>VS Code</li><li>Linux / CLI</li>
-          </ul>
-        </div>
+    <section class="gallery" data-screen-label="Gallery">
+      <div class="gallery-head">
+        <span class="label" style="font-size: 50px">Gallery</span>
+        <span class="label muted">
+</span>
+      </div>
+      <div class="gallery-grid">
+        <a href="#/project/henig-diamonds" class="g-tile g-1 ph reveal"><span class="ph-num">01</span><span class="ph-tag">drop image · 4:5 portrait</span></a>
+        <a href="#/project/loewe-selfridges" class="g-tile g-2 ph reveal"><span class="ph-num">02</span><span class="ph-tag">drop image · 3:4 portrait</span></a>
+        <a href="#/project/par-excellence" class="g-tile g-3 ph reveal"><span class="ph-num">03</span><span class="ph-tag">drop image · 1:1 square</span></a>
+        <a href="#/project/sindiso-khumalo" class="g-tile g-4 ph reveal"><span class="ph-num">04</span><span class="ph-tag">drop image · 16:9 wide</span></a>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section class="view work" data-view="work" data-screen-label="02 Work">
+    <div class="section-head">
+      <div class="label">Index — 05</div>
+      <h2 class="serif" style="font-size: 100px">Work</h2>
+      <div class="meta">2023 — 2025</div>
+    </div>
+
+    <div class="work-stack" id="workList">
+      <!-- cards injected by JS so project page <-> list stays in sync -->
+    </div>
+  </section>
+
+  <!-- ============ PROJECT (template - filled by JS) ============ -->
+  <section class="view project" data-view="project" data-screen-label="03 Project">
+
+
+    <div class="pj-head">
+      <div>
+        <div class="num" id="pjNum">Project — 01 / 05</div>
+        <h1 class="serif pj-title" id="pjTitle">Project Title</h1>
+      </div>
+      <dl class="pj-meta" id="pjMeta"></dl>
+    </div>
+
+    <div class="pj-hero ph reveal" id="pjHero">
+      <span class="ph-num">01</span>
+      <span class="ph-tag" id="pjHeroTag">hero image</span>
+    </div>
+
+    <div class="pj-section reveal">
+      <div>
+        <div class="label">Overview</div>
+        <h3 id="pjSubtitle">A short, evocative subtitle for this project.</h3>
+      </div>
+      <div class="body" id="pjOverview"></div>
+    </div>
+
+    <div class="pj-grid g-2 reveal">
+      <div class="pj-tile h-md ph"><span class="ph-num">02</span><span class="ph-tag">campaign still</span></div>
+      <div class="pj-tile h-md ph"><span class="ph-num">03</span><span class="ph-tag">detail / texture</span></div>
+    </div>
+
+    <div class="pj-grid g-12 reveal">
+      <div class="pj-tile h-sm ph"><span class="ph-num">04</span><span class="ph-tag">type lockup</span></div>
+      <div class="pj-tile h-md ph"><span class="ph-num">05</span><span class="ph-tag">in-store / window</span></div>
+    </div>
+
+    <div class="pj-section reveal">
+      <div>
+        <div class="label">Approach</div>
+        <h3>The thinking behind the work.</h3>
+      </div>
+      <div class="body" id="pjApproach"></div>
+    </div>
+
+    <div class="pj-tile h-lg ph reveal" style="margin:24px 0">
+      <span class="ph-num">06</span><span class="ph-tag">full-bleed editorial</span>
+    </div>
+
+    <div class="pj-grid g-21 reveal">
+      <div class="pj-tile h-md ph"><span class="ph-num">07</span><span class="ph-tag">collateral spread</span></div>
+      <div class="pj-tile h-sm ph"><span class="ph-num">08</span><span class="ph-tag">behind the scenes</span></div>
+    </div>
+
+    <div class="pj-quote reveal">
+      <q id="pjQuote">A pop-up should feel like a chapter, not a transaction — inviting, considered, and impossible to walk past.</q>
+      <span class="by">— working note</span>
+    </div>
+
+    <div class="pj-next">
+      <div class="label">Next</div>
+      <a id="pjNext" href="#/project/jeunesse">Jeunesse</a>
+      <span class="arr">↗</span>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="view about" data-view="about" data-screen-label="04 About">
+    <div class="ab-hero">
+      <h1 class="serif">A note <em style="font-style:italic;color:var(--fg-soft)">on me</em>.</h1>
+      <p class="lede">I'm Celia — a creative marketer learning by doing, currently based in <em>London</em>. I gravitate toward brands where the product, the story and the room it lives in are all asked to do the same heavy lifting.</p>
+    </div>
+
+    <div class="ab-portrait ph">
+      <span class="ph-num">PORTRAIT</span>
+      <span class="ph-tag">drop a 3:4 portrait here · approx. 1200 × 1600</span>
+    </div>
+
+    <div class="ab-section">
+      <div class="label">01 — Practice</div>
+      <div>
+        <h3>Marketing as composition.</h3>
+        <p>I think of campaigns the way an editor thinks of a magazine: a sequence of pages, each pulling its weight, each leaving a residue. My favourite briefs are the ones that ask for clarity first and cleverness second.</p>
+        <p>Most recently I've been working across luxury retail, jewellery and emerging fashion — translating brand worlds into windows, pop-ups and the small printed things people pocket on the way out.</p>
+      </div>
+    </div>
+
+    <div class="ab-section">
+      <div class="label">02 — Currently</div>
+      <div>
+        <h3>What I'm into right now.</h3>
+        <p>Reading: trade press from the 1960s. Watching: how independent designers handle their own retail moments. Thinking about: the difference between a brand that has a tone and a brand that has a temperature.</p>
+      </div>
+    </div>
+
+    <div class="ab-section">
+      <div class="label">03 — Selected</div>
+      <div class="ab-list">
+        <div class="row"><span class="yr">2025</span><span class="what">Loewe × Selfridges — Pop-up</span></div>
+        <div class="row"><span class="yr">2025</span><span class="what">Henig Diamonds — Brand</span></div>
+        <div class="row"><span class="yr">2024</span><span class="what">Par Excellence — Editorial</span></div>
+        <div class="row"><span class="yr">2024</span><span class="what">Sindiso Khumalo — Campaign</span></div>
+        <div class="row"><span class="yr">2023</span><span class="what">JEUNESSE — Identity</span></div>
+        <div class="row"><span class="yr">—</span><span class="what">Available for select 2026 work</span></div>
+      </div>
+    </div>
+
+    <div class="ab-section">
+      <div class="label">04 — Contact</div>
+      <div>
+        <h3>The fastest way to reach me is email.</h3>
+        <p>For commissioned work, collaborations or a quiet hello — <a href="mailto:celia.chuang11@gmail.com" style="border-bottom:1px solid var(--fg)">celia.chuang11@gmail.com</a>. I reply within a couple of working days.</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══ CONTACT ═══ -->
-  <section id="contact" class="s-contact">
-    <div class="contact-inner" data-reveal>
-      <span class="section-label-sm">Contact</span>
-      <h2 class="contact-heading"><em>CELIA CHUANG</em></h2>
-      <p class="contact-sub">Have a project in mind, or just want to chat? My inbox is always open.</p>
-      <a href="mailto:celia.chuang11@gmail.com" class="contact-email">
-        celia.chuang11@gmail.com
-        <span class="email-arrow">↗</span>
-      </a>
-    </div>
-  </section>
 
-  <!-- ═══ FOOTER ═══ -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <span>Celia — Portfolio</span>
-      <span>&copy; <span id="footer-year"></span></span>
-      <span>Designed &amp; Built by Celia</span>
-    </div>
-  </footer>
 
-  <script src="script.js"></script>
+</main>
+
+<footer class="foot">
+  <div class="foot-meta">
+    <span>London · Available 2026</span>
+    <a href="mailto:celia.chuang11@gmail.com">celia.chuang11@gmail.com</a>
+    <span>© 2026</span>
+  </div>
+  <div class="foot-name"><span>Celia</span><span class="it">Chuang</span></div>
+</footer>
+
+<script>
+/* ======== DATA ======== */
+const PROJECTS = [
+  {
+    slug:'henig-diamonds',
+    title:'Henig Diamonds',
+    cat:'Brand · Retail',
+    year:'2025',
+    role:'Marketing Lead',
+    type:'Independent jewellery house',
+    location:'Mayfair, London',
+    subtitle:'A quieter language for a 100-year-old jeweller, rebuilt for a generation that finds heritage on a phone.',
+    overview:[
+      'Henig is a fourth-generation diamond house. The work was about translating a century of cabinet-and-key trust into a digital surface that didn\'t lose the room.',
+      'We rebuilt the brand voice around a single idea: every stone is already a story. The client\'s job is not to add to it — only to set it down carefully.'
+    ],
+    approach:[
+      'Long-form campaign captions, hand-set in DM-Serif italics; product photography pulled to high contrast; and a slow, almost reverential cadence across socials. Less is the strategy.'
+    ],
+    quote:'A diamond is the only object that asks to be looked at twice.',
+    nextSlug:'jeunesse'
+  },
+  {
+    slug:'jeunesse',
+    title:'Jeunesse',
+    cat:'Identity · Editorial',
+    year:'2024',
+    role:'Brand & Marketing',
+    type:'Skincare for the in-between years',
+    location:'Paris / London',
+    subtitle:'A skincare line that treats youth as a tense, not a category — and packaging that reads like a love letter to soft mornings.',
+    overview:[
+      'Jeunesse launched into a market obsessed with anti-anything. We argued for a different shelf: products that meet skin where it is, photographed in window-light, written about in second person.',
+      'The identity sits on two typefaces and one warm white — a system small enough to be carried by anyone on the team without dilution.'
+    ],
+    approach:[
+      'Each SKU got a one-page editorial — half product spec, half short story. The pages collect into a quarterly print mailer that customers actually keep.'
+    ],
+    quote:'Youth is a tense, not a category.',
+    nextSlug:'par-excellence'
+  },
+  {
+    slug:'par-excellence',
+    title:'Par Excellence',
+    cat:'Editorial · Campaign',
+    year:'2024',
+    role:'Creative Lead',
+    type:'Capsule editorial',
+    location:'London',
+    subtitle:'A six-page capsule for an emerging atelier, built around the small rituals of dressing for nothing in particular.',
+    overview:[
+      'Par Excellence wanted a campaign without a campaign\'s usual machinery. We treated it as an editorial project: a stylist, a writer, a photographer, a single weekend, one studio.',
+      'The result is a folded broadsheet that lives in stockists, plus a digital spread that reads as one long scroll instead of a carousel.'
+    ],
+    approach:[
+      'Set the writing first; let the images answer it. Captions in Space Mono so the page never lets you forget it\'s a working document.'
+    ],
+    quote:'Dress for nothing in particular. The day will catch up.',
+    nextSlug:'loewe-selfridges'
+  },
+  {
+    slug:'loewe-selfridges',
+    title:'Loewe × Selfridges',
+    cat:'Retail · Pop-up',
+    year:'2025',
+    role:'Retail Marketing Asst.',
+    type:'In-store activation',
+    location:'Selfridges, London',
+    subtitle:'A two-week pop-up built around a single thesis: a window should feel like a chapter, not a transaction.',
+    overview:[
+      'The activation lived in a corner of the corner ground floor. Constraints: small footprint, large foot-traffic, very particular brand world.',
+      'We treated the room as an editorial spread — a single object held against a single coloured wall, captioned as if for a museum, mirrored by an in-app guide.'
+    ],
+    approach:[
+      'Print-first thinking, executed retail-first. The take-home was a folded card the size of a passport, designed to be kept.'
+    ],
+    quote:'A pop-up should feel like a chapter, not a transaction.',
+    nextSlug:'sindiso-khumalo'
+  },
+  {
+    slug:'sindiso-khumalo',
+    title:'Sindiso Khumalo',
+    cat:'Campaign · Brand',
+    year:'2024',
+    role:'Brand Marketing',
+    type:'SS25 campaign launch',
+    location:'London / Cape Town',
+    subtitle:'A seasonal launch told as a postcard exchange between two cities — print-led, digital-second, deliberately unhurried.',
+    overview:[
+      'Sindiso\'s practice is rooted in research: archives, textiles, women\'s histories. The campaign work needed to honour that without lecturing.',
+      'We built a slow-release campaign — one image, one short piece of writing, every Sunday for six weeks. The brand grew its mailing list by 38% without a single discount line.'
+    ],
+    approach:[
+      'A six-week newsletter as the campaign\'s spine. Social was supplementary. The press release came last, not first.'
+    ],
+    quote:'The archive is a place you visit slowly, on purpose.',
+    nextSlug:'henig-diamonds'
+  }
+];
+
+/* ======== WORK LIST ======== */
+const workList = document.getElementById('workList');
+PROJECTS.forEach((p, i) => {
+  const card = document.createElement('a');
+  card.className = 'work-card';
+  card.href = '#/project/' + p.slug;
+  card.dataset.slug = p.slug;
+  card.innerHTML = '<div class="frame ph"><div class="inner ph"></div><span class="ph-num">' + String(i+1).padStart(2,'0') + '</span><span class="ph-tag">' + p.title.toLowerCase() + ' · cover</span></div><div class="overlay"><div class="title serif">' + p.title + '</div><span class="cat">' + p.cat + '</span></div>';
+  workList.appendChild(card);
+});
+
+/* ======== HOVER PREVIEW ======== */
+const preview = document.getElementById('preview');
+const previewTag = document.getElementById('previewTag');
+let pvX = innerWidth/2, pvY = innerHeight/2, tx = pvX, ty = pvY;
+addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+function tick(){
+  pvX += (tx - pvX) * 0.18;
+  pvY += (ty - pvY) * 0.18;
+  preview.style.left = pvX + 'px';
+  preview.style.top  = pvY + 'px';
+  requestAnimationFrame(tick);
+}
+tick();
+
+// (preview retained but unused on new card layout)
+preview.style.display = 'none';
+
+/* ======== ROUTING ======== */
+const views = document.querySelectorAll('.view');
+const navLinks = document.querySelectorAll('nav.primary a');
+
+function setView(name){
+  views.forEach(v => v.classList.toggle('is-active', v.dataset.view === name));
+  navLinks.forEach(a => a.classList.toggle('active', a.dataset.route === name));
+  window.scrollTo({top:0, behavior:'instant'});
+  // re-init reveals for the new view
+  setTimeout(initReveals, 30);
+}
+
+function fillProject(slug){
+  const idx = PROJECTS.findIndex(p=>p.slug===slug);
+  if(idx < 0) return false;
+  const p = PROJECTS[idx];
+  document.getElementById('pjNum').textContent = `Project — ${String(idx+1).padStart(2,'0')} / ${String(PROJECTS.length).padStart(2,'0')}`;
+  document.getElementById('pjTitle').textContent = p.title;
+  document.getElementById('pjSubtitle').textContent = p.subtitle;
+  document.getElementById('pjHeroTag').textContent = `${p.title.toLowerCase()} · hero image`;
+  document.getElementById('pjQuote').textContent = p.quote;
+
+  const meta = document.getElementById('pjMeta');
+  meta.innerHTML = `
+    <dt>Role</dt><dd>${p.role}</dd>
+    <dt>Type</dt><dd>${p.type}</dd>
+    <dt>Year</dt><dd>${p.year}</dd>
+    <dt>Place</dt><dd>${p.location}</dd>
+  `;
+  document.getElementById('pjOverview').innerHTML = p.overview.map(t=>`<p>${t}</p>`).join('');
+  document.getElementById('pjApproach').innerHTML = p.approach.map(t=>`<p>${t}</p>`).join('');
+  const next = PROJECTS.find(x=>x.slug===p.nextSlug) || PROJECTS[0];
+  const nextLink = document.getElementById('pjNext');
+  nextLink.textContent = next.title;
+  nextLink.href = `#/project/${next.slug}`;
+  return true;
+}
+
+function route(){
+  const hash = location.hash || '#/';
+  if(hash.startsWith('#/project/')){
+    const slug = hash.replace('#/project/','');
+    const ok = fillProject(slug);
+    if(!ok){ location.hash = '#/work'; return; }
+    setView('project');
+    return;
+  }
+  if(hash === '#/work'){ setView('work'); return; }
+  if(hash === '#/about'){ setView('about'); return; }
+  if(hash === '#/contact'){ location.href = 'mailto:celia.chuang11@gmail.com'; return; }
+  setView('home');
+}
+addEventListener('hashchange', route);
+route();
+
+/* ======== SCROLL REVEAL ======== */
+let io;
+function initReveals(){
+  if(io) io.disconnect();
+  io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  }, {rootMargin:'-8% 0px -8% 0px'});
+  document.querySelectorAll('.view.is-active .reveal').forEach(el => io.observe(el));
+}
+
+/* ======== MODE TOGGLE (light / dark) ======== */
+(function(){
+  const tog = document.getElementById('modeTog');
+  function set(mode){
+    document.documentElement.setAttribute('data-mode', mode);
+    try{ localStorage.setItem('cc.mode', mode); }catch(e){}
+  }
+  set(localStorage.getItem('cc.mode') || 'light');
+  tog.addEventListener('click', () => {
+    set(document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark');
+  });
+})();
+
+/* ======== INTRO COUNTDOWN ======== */
+(function(){
+  const intro = document.getElementById('intro');
+  const count = document.getElementById('introCount');
+  if(sessionStorage.getItem('cc.intro') === '1'){ intro.remove(); return; }
+
+  document.body.classList.add('intro-locked');
+  const total = 100;
+  const dur = 2400;
+  const start = performance.now();
+  function step(now){
+    const p = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - p, 1.6);
+    const n = Math.floor(eased * total);
+    count.textContent = String(n).padStart(3, '0');
+    if(p < 1){ requestAnimationFrame(step); }
+    else {
+      count.textContent = '100';
+      setTimeout(() => {
+        intro.classList.add('out');
+        document.body.classList.remove('intro-locked');
+        sessionStorage.setItem('cc.intro', '1');
+        setTimeout(() => intro.remove(), 1100);
+      }, 320);
+    }
+  }
+  requestAnimationFrame(step);
+})();
+</script>
+
 </body>
 </html>
