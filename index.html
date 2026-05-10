@@ -153,18 +153,54 @@
     display: inline-block;
     opacity: 0;
     transform: translateY(1.2em);
-    animation: letterSlideUp 0.8s var(--ease) forwards;
   }
+  body.anim-ready .home-name.letter-slide span {
+    animation: letterSlideUp 0.9s var(--ease) forwards;
+  }
+  /* Left name "Celia" — letter delays */
   .home-name.letter-slide span:nth-child(1) { animation-delay: 0s; }
-  .home-name.letter-slide span:nth-child(2) { animation-delay: 0.08s; }
-  .home-name.letter-slide span:nth-child(3) { animation-delay: 0.16s; }
-  .home-name.letter-slide span:nth-child(4) { animation-delay: 0.24s; }
-  .home-name.letter-slide span:nth-child(5) { animation-delay: 0.32s; }
-  .home-name.letter-slide span:nth-child(6) { animation-delay: 0.4s; }
-  .home-name.letter-slide span:nth-child(7) { animation-delay: 0.48s; }
+  .home-name.letter-slide span:nth-child(2) { animation-delay: 0.09s; }
+  .home-name.letter-slide span:nth-child(3) { animation-delay: 0.18s; }
+  .home-name.letter-slide span:nth-child(4) { animation-delay: 0.27s; }
+  .home-name.letter-slide span:nth-child(5) { animation-delay: 0.36s; }
+  .home-name.letter-slide span:nth-child(6) { animation-delay: 0.45s; }
+  .home-name.letter-slide span:nth-child(7) { animation-delay: 0.54s; }
+  /* Right name "Chuang" — starts after left completes */
+  .home-hero .right .home-name.letter-slide span:nth-child(1) { animation-delay: 0.48s; }
+  .home-hero .right .home-name.letter-slide span:nth-child(2) { animation-delay: 0.57s; }
+  .home-hero .right .home-name.letter-slide span:nth-child(3) { animation-delay: 0.66s; }
+  .home-hero .right .home-name.letter-slide span:nth-child(4) { animation-delay: 0.75s; }
+  .home-hero .right .home-name.letter-slide span:nth-child(5) { animation-delay: 0.84s; }
+  .home-hero .right .home-name.letter-slide span:nth-child(6) { animation-delay: 0.93s; }
   @keyframes letterSlideUp {
-    from { opacity: 0; transform: translateY(1.2em); }
+    from { opacity: 0; transform: translateY(1.05em); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  /* Hero eyebrow + tagline fade-in */
+  .hero-fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 1.1s var(--ease) 1.2s, transform 1.1s var(--ease) 1.2s;
+  }
+  body.anim-ready .hero-fade-in { opacity: 1; transform: none; }
+  /* Scroll indicator */
+  .hero-scroll {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 40px 0 20px;
+    font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--fg-faint);
+    opacity: 0; transition: opacity 1.4s var(--ease) 1.8s;
+  }
+  body.anim-ready .hero-scroll { opacity: 1; }
+  .hero-scroll .scroll-line {
+    width: 1px; height: 44px; background: var(--fg-soft);
+    animation: scrollPulse 2.2s var(--ease) infinite 2.4s;
+    transform: scaleY(0); transform-origin: top;
+  }
+  @keyframes scrollPulse {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    45%  { transform: scaleY(1); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: bottom; }
+    95%, 100% { transform: scaleY(0); transform-origin: bottom; }
   }
   .home-name.it{font-style:italic;color:var(--fg)}
   .home-sub{margin-top:32px;max-width:38ch;color:var(--fg-soft)}
@@ -315,6 +351,15 @@
     white-space:nowrap;gap:1em;
   }
   footer.foot .foot-name .it{font-style:italic;color:rgba(241,234,224,0.78)}
+  .foot-actions{padding:28px 0 0;display:flex;justify-content:flex-end}
+  .foot-cta{
+    display:inline-flex;align-items:center;gap:12px;
+    border:1px solid rgba(241,234,224,0.35);border-radius:99px;
+    padding:16px 28px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+    color:rgba(241,234,224,0.6);
+    transition:background 240ms var(--ease),color 240ms var(--ease),border-color 240ms var(--ease);
+  }
+  .foot-cta:hover{background:#f1eae0;color:#1a1614;border-color:#f1eae0}
 
   .ph{
     --c: rgba(26,22,20,0.07);
@@ -385,12 +430,21 @@
   <section class="view home" data-view="home" data-screen-label="01 Home">
     <div class="home-hero">
       <div class="left">
-        <h1 class="serif home-name">Celia</h1>
-        <p class="home-sub">Creative entry-level marketing professional based in London. Working at the intersection of brand, retail and editorial — building stories that make objects feel inevitable.</p>
+        <div class="home-eyebrow hero-fade-in">
+          <span class="bar"></span>
+          <span>Creative Marketing · London</span>
+        </div>
+        <h1 class="serif home-name letter-slide"><span>C</span><span>e</span><span>l</span><span>i</span><span>a</span></h1>
+        <p class="home-sub hero-fade-in">Creative entry-level marketing professional based in London. Working at the intersection of brand, retail and editorial — building stories that make objects feel inevitable.</p>
       </div>
       <div class="right">
-        <h1 class="serif home-name it" style="padding: 0px">Chuang</h1>
+        <h1 class="serif home-name it letter-slide" style="padding: 0px"><span>C</span><span>h</span><span>u</span><span>a</span><span>n</span><span>g</span></h1>
       </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      <span>Scroll</span>
     </div>
 
     <section class="gallery" data-screen-label="Gallery">
@@ -521,6 +575,9 @@
     <span>© 2026</span>
   </div>
   <div class="foot-name"><span>Celia</span><span class="it">Chuang</span></div>
+  <div class="foot-actions">
+    <a href="mailto:celia.chuang@gmail.com" class="foot-cta">Get in touch ↗</a>
+  </div>
 </footer>
 
 <script>
@@ -646,7 +703,7 @@ function initReveals(){
 (function(){
   const intro = document.getElementById('intro');
   const count = document.getElementById('introCount');
-  if(sessionStorage.getItem('cc.intro')==='1'){ intro.remove(); return; }
+  if(sessionStorage.getItem('cc.intro')==='1'){ intro.remove(); document.body.classList.add('anim-ready'); return; }
   document.body.classList.add('intro-locked');
   const dur=2400, start=performance.now();
   function step(now){
@@ -659,6 +716,7 @@ function initReveals(){
       setTimeout(()=>{
         intro.classList.add('out');
         document.body.classList.remove('intro-locked');
+        document.body.classList.add('anim-ready');
         sessionStorage.setItem('cc.intro','1');
         setTimeout(()=>intro.remove(),1100);
       },320);
